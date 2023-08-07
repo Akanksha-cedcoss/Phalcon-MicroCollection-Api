@@ -14,7 +14,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        
+        die('index');
     }
     /**
      * get all products
@@ -28,10 +28,10 @@ class ProductController extends Controller
         $result = array();
         foreach ($products as $p) {
             array_push($result, array(
-                "name"       =>   $p->name,
-                "category"   =>   $p->category,
-                "price"      =>   $p->price,
-                "stock"      =>   $p->stock
+                "name"       =>   $p->name ?? '',
+                "category"   =>   $p->category ?? '',
+                "price"      =>   $p->price ?? 0,
+                "stock"      =>   $p->stock ?? 0
             ));
         }
         $content = [

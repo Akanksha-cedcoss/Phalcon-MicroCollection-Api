@@ -52,7 +52,7 @@ $authentication
     ->setHandler(new MyApp\Controllers\AuthenticationController())
     ->setPrefix('/authenticate')
     ->get('/', 'index')
-    ->get('/token/{name:}&{role:}', 'generateToken');
+    ->get('/token', 'generateToken');
 
 $app->mount($authentication);
 
@@ -86,7 +86,7 @@ $app->mount($product);
 
 $app->notFound(
     function () use ($app) {
-        $message = 'URL you used in your request doesn’t exist on the server.';
+        $message = $_SERVER["REQUEST_URI"] . ' URL you used in your request doesn’t exist on the server.';
         $app
             ->response
             ->setStatusCode(404, 'Not Found')

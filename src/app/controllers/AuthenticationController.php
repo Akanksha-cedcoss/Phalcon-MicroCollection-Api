@@ -1,4 +1,5 @@
 <?php
+
 namespace MyApp\Controllers;
 
 use Phalcon\Mvc\Controller;
@@ -18,15 +19,17 @@ class AuthenticationController extends Controller
 {
     public function index()
     {
-        // ...
+        die('index');
     }
     /**
      * generate token using jwt
      *
      * @return void
      */
-    public function generateToken($name, $role)
+    public function generateToken()
     {
+        $name = $this->request->getQuery('name');
+        $role = $this->request->getQuery('role');
         $key = "example_key";
         $now = new \DateTimeImmutable();
         $payload = array(
@@ -40,10 +43,10 @@ class AuthenticationController extends Controller
         );
         $token = JWT::encode($payload, $key, 'HS256');
         $content = [
-            'type'=>'token',
-            'token'=>$token,
-            'name'=>explode("=", $name)[1],
-            'role'=>explode("=", $role)[1],
+            'type' => 'token',
+            'token' => $token,
+            'name' => $name,
+            'role' => $role,
         ];
         $this->response->setStatusCode(200, 'Token Generated')->setJsonContent($content);
 
